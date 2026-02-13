@@ -1,0 +1,43 @@
+# ==========================================
+# NEVER PUSH SECRETS OR BACKEND FILES
+# ==========================================
+
+# Moltis config (contains API keys)
+.config/
+.moltis/
+moltis.toml
+*.toml
+
+# API Keys and Secrets
+*.env
+.env*
+*.key
+*.pem
+*.secret
+secrets/
+
+# Telegram bot scripts (contains tokens)
+telegram_bot.py
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# System
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*~
+
+# Node
+node_modules/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3

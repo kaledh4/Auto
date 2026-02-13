@@ -1,0 +1,17 @@
+# 📈 System Status
+
+Monitor the health of the Knowledge Base backend services.
+
+## 🖥 VPS Resources
+- **RAM**: 1GB
+- **Disk**: Healthy
+- **Uptime**: $(uptime -p)
+
+## 🔄 Last Sync
+- **Status**: ✅ Success
+- **Timestamp**: $(date)
+
+## 📊 Processed Count
+- **Total Articles**: 0
+- **Total Telegram Posts**: 0
+- **Total Links**: 0
