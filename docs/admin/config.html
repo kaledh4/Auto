@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Configuration | Auto Knowledge Base</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(18, 18, 26, 0.8);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-accent: rgba(139, 92, 246, 0.3);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8b8b9a;
+            --text-muted: #5a5a6e;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #a78bfa;
+            --accent-glow: rgba(139, 92, 246, 0.4);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --gradient-hero: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #3b82f6 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, -5%); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .config-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .config-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+        }
+
+        .config-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .config-value {
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .config-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .config-badge.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .config-badge.info {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--info);
+        }
+
+        .config-badge.warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 30px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--gradient-hero);
+            border-radius: 2px;
+        }
+
+        .path-list {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .path-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .path-item:last-child {
+            border-bottom: none;
+        }
+
+        .path-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .path-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-secondary);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 16px; }
+            .header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .page-title { font-size: 1.3rem; }
+            .config-card { padding: 20px; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <header class="header fade-in">
+            <a href="../index.html" class="back-link">← Back to Dashboard</a>
+            <h1 class="page-title">Admin Configuration</h1>
+        </header>
+
+        <section class="config-grid fade-in stagger-1">
+            <div class="config-card">
+                <div class="config-title">🔑 Authentication</div>
+                <div class="config-value">
+                    GitHub PAT
+                    <span class="config-badge success">Configured</span>
+                </div>
+            </div>
+            <div class="config-card">
+                <div class="config-title">🔐 Access Level</div>
+                <div class="config-value">
+                    VPS Access
+                    <span class="config-badge info">Root</span>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="section-title fade-in stagger-2">📁 Paths</h2>
+        <div class="path-list fade-in stagger-2">
+            <div class="path-item">
+                <span class="path-label">Knowledge Base</span>
+                <span class="path-value">/root/Medo/Knowledge Base</span>
+            </div>
+            <div class="path-item">
+                <span class="path-label">Docs Root</span>
+                <span class="path-value">/root/Auto/docs</span>
+            </div>
+        </div>
+
+        <h2 class="section-title fade-in stagger-3">🕒 Schedule</h2>
+        <div class="config-grid fade-in stagger-3">
+            <div class="config-card">
+                <div class="config-title">Daily Report</div>
+                <div class="config-value">
+                    <span class="config-badge warning">00:00 UTC</span>
+                </div>
+            </div>
+            <div class="config-card">
+                <div class="config-title">Sync Interval</div>
+                <div class="config-value">
+                    <span class="config-badge info">Every 6 hours</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer fade-in">
+            <p class="footer-text">Auto Knowledge Base • Admin Panel</p>
+        </footer>
+    </div>
+</body>
+</html>
