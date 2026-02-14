@@ -12,6 +12,6 @@ Monitor the health of the Knowledge Base backend services.
 - **Timestamp**: $(date)
 
 ## 📊 Processed Count
-- **Total Articles**: 0
-- **Total Telegram Posts**: 0
-- **Total Links**: 0
+- **Total Articles**: -
+- **Total Telegram Posts**: -
+- **Total Links**: -
